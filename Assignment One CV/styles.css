@@ -1,0 +1,64 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  background-color: #023231;
+  color: #fff;
+  padding: 20px 20px;
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+}
+
+.name {
+  font-weight: 200;
+}
+
+.title {
+  font-size: medium;
+  font-weight: 100;
+  color: aquamarine;
+}
+
+.profile {
+  font-size: medium;
+  font-weight: 100;
+}
+
+.contact {
+  background-color: black;
+  height: 30px;
+  width: 100%;
+}
+
+.contact-list {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.contact-item {
+  color: white;
+}
+
+.contact-item > a {
+  color: #fff;
+  text-decoration: none;
+}
+
+
+.education-section{
+  display: flex;
+  justify-content: space-evenly;
+}
