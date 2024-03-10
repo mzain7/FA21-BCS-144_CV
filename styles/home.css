@@ -1,9 +1,11 @@
-/* icnvrinvr */
 
 body {
   background-color: #9a9797;
+  font-family: "Poppins", sans-serif;
+  height: 100vh;
 }
 .navbar {
+  position: sticky;
   background-color: #fff;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
   padding: 0.5rem;
@@ -77,7 +79,8 @@ body {
 }
 
 .footer {
-  background: linear-gradient(to right, #00093c, #2d0b00);
+  /* background: linear-gradient(to right, #00093c, #2d0b00); */
+  background-color: #01072a;
   border-top-left-radius: 75px;
   border-top-right-radius: 75px;
   font-size: 13px;
