@@ -50,7 +50,7 @@
                 <a class="nav-link mx-lg-2" href="#">Item</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link mx-lg-2" href="#">Contact</a>
+                <a class="nav-link mx-lg-2" href="#contact-us">Contact</a>
               </li>
             </ul>
           </div>
@@ -69,17 +69,101 @@
       </div>
     </nav>
 
+    <div class="carousel-section">
+      <div
+        id="carouselExampleIndicators"
+        class="carousel slide"
+        data-bs-ride="carousel"
+      >
+        <div class="carousel-indicators">
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="0"
+            class="active"
+            aria-current="true"
+            aria-label="Slide 1"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="1"
+            aria-label="Slide 2"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="2"
+            aria-label="Slide 3"
+          ></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="img/img (1).webp" class="d-block w-100" alt="..." />
+          </div>
+          <div class="carousel-item">
+            <img src="img/img (2).webp" class="d-block w-100" alt="..." />
+          </div>
+          <div class="carousel-item">
+            <img src="img/img (3).webp" class="d-block w-100" alt="..." />
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+
     <div class="contact-us" id="contact-us">
       <h1>Contact Us</h1>
       <form class="contact-form">
-        <div class="form-section flex-md-row flex-column justify-content-between">
+        <div
+          class="form-section flex-md-row flex-column justify-content-between"
+        >
           <div class="col-sm-12 col-md-6">
-            <input class="contact-input" type="text" id="input-name" placeholder="Name" name="name" required/>
-            <input class="contact-input" type="email" id="input-email" placeholder="Email address" name="email" required/>
-            <input class="contact-input" type="text" id="input-subject" placeholder="Subject" name="subject" required/>
+            <input
+              class="contact-input"
+              type="text"
+              id="input-name"
+              placeholder="Name"
+              name="name"
+              required
+            />
+            <input
+              class="contact-input"
+              type="email"
+              id="input-email"
+              placeholder="Email address"
+              name="email"
+              required
+            />
+            <input
+              class="contact-input"
+              type="text"
+              id="input-subject"
+              placeholder="Subject"
+              name="subject"
+              required
+            />
           </div>
           <div class="col-sm-12 col-md-6">
-            <textarea class="contact-input"
+            <textarea
+              class="contact-input"
               name="message"
               type="text"
               id="input-message"
@@ -92,9 +176,7 @@
       </form>
     </div>
 
-    <footer
-      class="footer w-100 bottom-0 text-white py-4 py-md-5 px-0 px-md-4"
-    >
+    <footer class="footer w-100 bottom-0 text-white py-4 py-md-5 px-0 px-md-4">
       <div
         class="footer-row d-flex flex-wrap align-items-start justify-content-between mx-auto"
       >
@@ -158,6 +240,7 @@
       <hr />
       <p class="text-center">© 2023 Real Estate. All Rights Reserved.</p>
     </footer>
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
