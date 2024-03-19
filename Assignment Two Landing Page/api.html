@@ -38,7 +38,10 @@
           <div class="offcanvas-body">
             <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
               <li class="nav-item">
-                <a class="nav-link mx-lg-2 active" aria-current="page" href="index.html"
+                <a
+                  class="nav-link mx-lg-2"
+                  aria-current="page"
+                  href="index.html"
                   >Home</a
                 >
               </li>
@@ -47,7 +50,7 @@
                 <a class="nav-link mx-lg-2" href="#">About</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link mx-lg-2" href="api.html">Ajax API</a>
+                <a class="nav-link mx-lg-2 active" href="api.html">Ajax API</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link mx-lg-2" href="contact.html">Contact</a>
@@ -69,109 +72,38 @@
       </div>
     </nav>
 
-    <div class="carousel-section">
-      <div
-        id="carouselExampleIndicators"
-        class="carousel slide"
-        data-bs-ride="carousel"
-      >
-        <div class="carousel-indicators">
-          <button
-            type="button"
-            data-bs-target="#carouselExampleIndicators"
-            data-bs-slide-to="0"
-            class="active"
-            aria-current="true"
-            aria-label="Slide 1"
-          ></button>
-          <button
-            type="button"
-            data-bs-target="#carouselExampleIndicators"
-            data-bs-slide-to="1"
-            aria-label="Slide 2"
-          ></button>
-          <button
-            type="button"
-            data-bs-target="#carouselExampleIndicators"
-            data-bs-slide-to="2"
-            aria-label="Slide 3"
-          ></button>
-        </div>
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="img/img (1).webp" class="d-block w-100" alt="..." />
-          </div>
-          <div class="carousel-item">
-            <img src="img/img (2).webp" class="d-block w-100" alt="..." />
-          </div>
-          <div class="carousel-item">
-            <img src="img/img (3).webp" class="d-block w-100" alt="..." />
-          </div>
-        </div>
-        <button
-          class="carousel-control-prev"
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide="prev"
-        >
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button
-          class="carousel-control-next"
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide="next"
-        >
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
-    </div>
-
-    <section class="hero">
-      <div class="container">
-        <div class="row r1">
-          <div class="col-lg-6 text-section">
-            <div class="text">
-              <h1>Welcome to Our Real Estate Website</h1>
-              <p>
-                Find your dream home with us. We offer a wide range of
-                properties tailored to your needs.
-              </p>
+    <section class="ajax ">
+      <div class="container mt-5 col-sm-8">
+        <div class="">
+          <h2>Add Story</h2>
+          <form id="addStoryForm">
+            <div class="form-group">
+              <label for="title">Title:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="title"
+                name="title"
+                required
+              />
             </div>
-          </div>
-          <div class="col-lg-6 hero-img-container">
-            <img src="img/img (1).webp" alt="Image 1" class="hero-img" />
-          </div>
-        </div>
-        <div class="row r2">
-          <div class="col-lg-6 order-lg-1 text-section">
-            <div class="text">
-              <h2>Discover Amazing Properties</h2>
-              <p>
-                Explore our listings and find the perfect home for you and your
-                family.
-              </p>
+            <div class="form-group">
+              <label for="content">Content:</label>
+              <textarea
+                class="form-control"
+                id="content"
+                name="content"
+                rows="4"
+                required
+              ></textarea>
             </div>
-          </div>
-          <div class="col-lg-6 order-lg-2 hero-img-container">
-            <img src="img/img (2).webp" alt="Image 2" class="hero-img" />
-          </div>
+            <button type="submit" class="btn btn-primary mt-2">
+              Add Story
+            </button>
+          </form>
         </div>
-        <div class="row  r3">
-          <div class="col-lg-6 text-section">
-            <div class="text">
-              <h2>Expert Real Estate Agents</h2>
-              <p>
-                Our team of experienced agents is here to assist you at every
-                step of the way.
-              </p>
-            </div>
-          </div>
-          <div class="col-lg-6 hero-img-container">
-            <img src="img/img (3).webp" alt="Image 3"  class="hero-img" />
-          </div>
+        <div class="mt-5" id="listingContainer">
+          <h2>Stories</h2>
         </div>
       </div>
     </section>
@@ -246,6 +178,8 @@
       integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
       crossorigin="anonymous"
     ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
