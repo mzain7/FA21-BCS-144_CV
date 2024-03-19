@@ -165,3 +165,52 @@ hr {
   left: 0;
   z-index: -1;
 }
+
+.hero {
+  background-color: #fff5e2;
+  padding: 50px 0;
+}
+
+.row{
+  margin: 50px;
+  /* background-color: #ffda94; */
+}
+
+.hero .hero-img{
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 16px;
+  object-fit: cover;
+  overflow: hidden;
+
+}
+
+.r2{
+  flex-direction: row-reverse;
+}
+
+.text-section{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.text {
+  padding: 20px;
+  text-align: justify;
+}
+
+.text h1, .text h2 {
+  color: #333;
+}
+
+.text p {
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .hero .container {
+      padding: 0 15px;
+  }
+}

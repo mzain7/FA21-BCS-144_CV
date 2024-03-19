@@ -1,45 +1,58 @@
 function validateForm() {
-    var name = document.getElementById("input-name");
-    var email = document.getElementById("input-email");
-    var subject = document.getElementById("input-subject");
-    var message = document.getElementById("input-message");
-    var emailPattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    var name = $("#input-name");
+    var email = $("#input-email");
+    var subject = $("#input-subject");
+    var message = $("#input-message");
+    var emailPattern =
+        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-    validate = true;
-    name.classList.remove("contact-input-error");
-    email.classList.remove("contact-input-error");
-    subject.classList.remove("contact-input-error");
-    message.classList.remove("contact-input-error");
+    var validate = true;
+    $(".contact-input").removeClass("contact-input-error");
 
-    if (name.value.trim() === '' || name.value.length < 2 || name.value.length > 50) { 
-        name.classList.add("contact-input-error");
+    if (
+        name.val().trim() === "" ||
+        name.val().length < 2 ||
+        name.val().length > 50
+    ) {
+        name.addClass("contact-input-error");
         validate = false;
     }
 
-    if (!emailPattern.test(email)) {
-        email.classList.add("contact-input-error");
+    if (!emailPattern.test(email.val())) {
+        email.addClass("contact-input-error");
         validate = false;
     }
 
-    if (subject.value.trim() === '' || subject.value === null || subject.value.length < 2 || subject.value.length > 50) {
-        subject.classList.add("contact-input-error");
+    if (
+        subject.val().trim() === "" ||
+        subject.val() === null ||
+        subject.val().length < 2 ||
+        subject.val().length > 50
+    ) {
+        subject.addClass("contact-input-error");
         validate = false;
     }
 
-    if (message.value.trim() === '' || message.value === null || message.value.length < 2 || message.value.length > 50) {
-        message.classList.add("contact-input-error");
+    if (
+        message.val().trim() === "" ||
+        message.val() === null ||
+        message.val().length < 2 ||
+        message.val().length > 50
+    ) {
+        message.addClass("contact-input-error");
         validate = false;
     }
 
     return validate;
 }
 
-function handleSubmit(event) {
+function submitHandler(event) {
     event.preventDefault();
     if (validateForm()) {
         alert("Form submitted");
     }
 }
 
-var submitBtn = document.getElementById("input-submit");
-submitBtn.onclick = handleSubmit;
+$(document).ready(function () {
+    $("#input-submit").on("click",submitHandler);
+});
