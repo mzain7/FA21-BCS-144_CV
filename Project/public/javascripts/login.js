@@ -4,14 +4,14 @@ $(document).ready(function () {
 
     $("#signInError").text("");
 
-    $("signInButton").attr("disabled", true);
+    $("#signInButton").attr("disabled", true);
 
     const email = $("#email").val().trim();
     const password = $("#password").val().trim();
 
     $.ajax({
       type: "POST",
-      url: "/",
+      url: "/user/sign-in",
       data: {
         email: email,
         password: password,
@@ -20,8 +20,8 @@ $(document).ready(function () {
         alert("Form submitted successfully!");
       },
       error: function (xhr, status, error) {
-        $("#signInError").text(xhr.responseJSON.message);
-        $("signInButton").attr("disabled", false);
+        $("#signInError").text(xhr.responseJSON);
+        $("#signInButton").attr("disabled", false);
       },
     });
   });

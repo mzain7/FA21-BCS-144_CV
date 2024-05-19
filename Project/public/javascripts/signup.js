@@ -4,17 +4,17 @@ $(document).ready(function () {
 
     $("#signupError").text("");
 
-    $("signupButton").attr("disabled", true);
+    $("#signupButton").attr("disabled", true);
 
-    const name = $("#username").val().trim();
+    const username = $("#username").val().trim();
     const email = $("#email").val().trim();
     const password = $("#password").val().trim();
 
     $.ajax({
       type: "POST",
-      url: "/",
+      url: "/user/sign-up",
       data: {
-        name: name,
+        username: username,
         email: email,
         password: password,
       },
@@ -22,6 +22,7 @@ $(document).ready(function () {
         alert("Form submitted successfully!");
       },
       error: function (xhr, status, error) {
+        console.log(xhr, status, error);
         $("#signupError").text(xhr.responseJSON.message);
         $("signupButton").attr("disabled", false);
       },

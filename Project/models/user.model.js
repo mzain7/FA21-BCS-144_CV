@@ -23,7 +23,8 @@ const userSchema = new mongoose.Schema(
     },
     phone: {
       type: String,
-      default: "+923174317202",
+      default: "",
+      
     },
   },
   { timestamps: true }
