@@ -29,12 +29,17 @@ app.use(cookieParser());
 
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
-app.use(express.static( 'public'));
+app.use(express.static("public"));
 
 app.use(checkUser);
 
 app.get("/", (req, res) => {
-  res.render("home", { user: req.user });
+  res.render("home", {
+    user: req.user,
+    offerProperties,
+    rentProperties,
+    saleProperties,
+  });
 });
 
 app.get("/about", (req, res) => {
@@ -46,5 +51,3 @@ app.use("/user", userRoutes);
 app.listen(3000, () => {
   console.log("Server running on port 3000");
 });
-
-
