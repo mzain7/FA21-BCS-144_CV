@@ -1,0 +1,67 @@
+<% function formatPrice(price) { %>
+    <%= new Intl.NumberFormat('en-US').format(price) %>
+  <% } %>
+  
+  <div class="pr-2">
+    <div class="bg-white shadow-md hover:shadow-lg transition-shadow overflow-hidden rounded-lg mr-3 w-full sm:w-[330px] my-2 max-w-[350px] min-w-[280px]">
+      <a href="/property/<%= property._id %>">
+        <img
+          src="<%= property.imageUrls[0] || 'https://53.fs1.hubspotusercontent-na1.net/hub/53/hubfs/Sales_Blog/real-estate-business-compressor.jpg?width=595&height=400&name=real-estate-business-compressor.jpg' %>"
+          alt="property cover"
+          class="h-[230px] w-full object-cover hover:scale-105 transition-scale duration-300"
+        />
+        <div class="p-3 flex flex-col gap-2 w-full">
+          <p class="truncate text-lg font-semibold text-slate-700">
+            <%= property.name %>
+          </p>
+          <div class="flex items-center gap-1">
+            <i class="h-4 w-4 text-green-700">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                <path d="M12.166 8.94C10.815 10.616 8 14 8 14s-2.815-3.384-4.166-5.06C2.32 7.622 2 6.56 2 5.5 2 3.014 4.014 1 6.5 1S11 3.014 11 5.5c0 1.06-.32 2.122-1.166 3.44zM6.5 6.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+              </svg>
+            </i>
+            <p class="text-sm text-gray-600 truncate w-full">
+              <%= property.address %>
+            </p>
+          </div>
+          <p class="text-sm text-gray-600 line-clamp-2">
+            <%= property.description %>
+          </p>
+          <p class="text-slate-500 mt-2 font-semibold">
+            $<%= property.offer ? formatPrice(property.discountPrice) : formatPrice(property.regularPrice) %>
+            <%= property.type === 'rent' ? ' / month' : '' %>
+          </p>
+          <ul class="text-green-900 font-semibold text-sm flex flex-wrap items-center gap-4">
+            <li class="flex items-center gap-1 whitespace-nowrap">
+              <i class="text-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
+                  <path d="M8.354 1.146a.5.5 0 0 1 .292.293l6 13a.5.5 0 0 1-.832.554L8 2.207 1.354 15.293a.5.5 0 1 1-.832-.554l6-13a.5.5 0 0 1 .832-.083z"/>
+                  <path d="M3 2.5A.5.5 0 0 1 3.5 2h9a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-11zM4 3v10h8V3H4z"/>
+                </svg>
+              </i>
+              <%= property.bedrooms > 1 ? property.bedrooms + ' beds' : property.bedrooms + ' bed' %>
+            </li>
+            <li class="flex items-center gap-1 whitespace-nowrap">
+              <i class="text-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-bath" viewBox="0 0 16 16">
+                  <path d="M12 4a3 3 0 0 1-3 3H7a3 3 0 1 1 0-6h2a3 3 0 0 1 3 3z"/>
+                  <path d="M8 2a2 2 0 0 0-2 2h4a2 2 0 0 0-2-2z"/>
+                  <path d="M1 10.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 0 1H14v.5a.5.5 0 0 1-.5.5h-1v1.5a.5.5 0 0 1-1 0V13H4v1.5a.5.5 0 0 1-1 0V13H2.5a.5.5 0 0 1-.5-.5v-.5H1.5a.5.5 0 0 1 0-1H2v-.5a.5.5 0 0 1 .5-.5H1v-.5a.5.5 0 0 1 .5-.5zm1 1h12v.5H2v-.5z"/>
+                </svg>
+              </i>
+              <%= property.bathrooms > 1 ? property.bathrooms + ' baths' : property.bathrooms + ' bath' %>
+            </li>
+            <li class="flex items-center gap-1 whitespace-nowrap">
+              <i class="text-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-chair" viewBox="0 0 16 16">
+                  <path d="M4 10h8a1 1 0 0 1 1 1v2h-1v2H4v-2H3v-2a1 1 0 0 1 1-1zm0-1V5a2 2 0 1 1 4 0v1h2a2 2 0 1 1 4 0v4h1v-4a3 3 0 1 0-6 0v1H5v-1a3 3 0 1 0-6 0v4h1v-4a2 2 0 0 1 4 0z"/>
+                </svg>
+              </i>
+              <%= property.furnished ? 'Furnished' : 'Unfurnished' %>
+            </li>
+          </ul>
+        </div>
+      </a>
+    </div>
+  </div>
+  

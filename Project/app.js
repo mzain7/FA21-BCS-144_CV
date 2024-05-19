@@ -10,6 +10,8 @@ import cookieParser from "cookie-parser";
 
 import userRoutes from "./routes/user.routes.js";
 import { checkUser } from "./utils/user.js";
+import { get } from "http";
+import { findProperties } from "./controllers/property.controller.js";
 
 dotenv.config();
 
@@ -33,7 +35,13 @@ app.use(express.static("public"));
 
 app.use(checkUser);
 
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
+  const [offerProperties, rentProperties, saleProperties] = await Promise.all([
+    findProperties(null, true),
+    findProperties("rent", null),
+    findProperties("sale", null),
+  ]);
+  console.log(offerProperties);
   res.render("home", {
     user: req.user,
     offerProperties,
@@ -47,7 +55,6 @@ app.get("/about", (req, res) => {
 });
 
 app.use("/user", userRoutes);
-
 
 app.use((err, req, res, next) => {
   const statusCode = err.status || 500;
