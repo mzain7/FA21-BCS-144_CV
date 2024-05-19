@@ -41,6 +41,9 @@ app.get("/about", (req, res) => {
 app.get("/sign-in", (req, res) => {
   res.render("users/login");
 });
+app.get("/sign-up", (req, res) => {
+  res.render("users/signup");
+});
 
 app.listen(3000, () => {
   console.log("Server running on port 3000");

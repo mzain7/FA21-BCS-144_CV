@@ -1,11 +1,12 @@
 $(document).ready(function () {
-  $("#signInForm").on("submit", function (event) {
+  $("#signupForm").on("submit", function (event) {
     event.preventDefault();
 
-    $("#signInError").text("");
+    $("#signupError").text("");
 
-    $("signInButton").attr("disabled", true);
+    $("signupButton").attr("disabled", true);
 
+    const name = $("#username").val().trim();
     const email = $("#email").val().trim();
     const password = $("#password").val().trim();
 
@@ -13,6 +14,7 @@ $(document).ready(function () {
       type: "POST",
       url: "/",
       data: {
+        name: name,
         email: email,
         password: password,
       },
@@ -20,8 +22,8 @@ $(document).ready(function () {
         alert("Form submitted successfully!");
       },
       error: function (xhr, status, error) {
-        $("#signInError").text(xhr.responseJSON.message);
-        $("signInButton").attr("disabled", false);
+        $("#signupError").text(xhr.responseJSON.message);
+        $("signupButton").attr("disabled", false);
       },
     });
   });

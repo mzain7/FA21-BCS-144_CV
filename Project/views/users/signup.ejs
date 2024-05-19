@@ -1,0 +1,57 @@
+<%- layout('./layouts/boilerplate.ejs') %>
+
+<div class="p-3 max-w-lg mx-auto">
+  <h1 class="text-3xl text-center font-semibold my-7">Create an Account</h1>
+  <form id="signupForm" class="flex flex-col gap-4">
+    <div class="flex flex-col">
+      <label for="username">Username: </label>
+      <input
+        type="text"
+        placeholder="Username"
+        class="border p-3 rounded-lg"
+        id="username"
+        name="username"
+        required
+        minlength="4"
+      />
+    </div>
+    <div class="flex flex-col">
+      <label for="email">Email: </label>
+      <input
+        type="email"
+        placeholder="Email"
+        class="border p-3 rounded-lg"
+        id="email"
+        name="email"
+        required
+      />
+    </div>
+    <div class="flex flex-col">
+      <label for="password">Password: </label>
+      <input
+        type="password"
+        placeholder="Password"
+        class="border p-3 rounded-lg"
+        id="password"
+        name="password"
+        required
+        minlength="8"
+      />
+    </div>
+    <button
+    id="signupButton"
+      type="submit"
+      class="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 flex justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      Sign Up
+    </button>
+  </form>
+  <p id="signupError" class="text-red-500 mt-1"></p>
+  <div class="flex gap-2 mt-1">
+    <p>Have an account?</p>
+    <a href="/sign-in"><span class="text-blue-700">Sign in</span></a>
+  </div>
+</div>
+
+
+<script src="/javascripts/signup.js"></script>
