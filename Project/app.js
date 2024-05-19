@@ -48,6 +48,13 @@ app.get("/about", (req, res) => {
 
 app.use("/user", userRoutes);
 
+
+app.use((err, req, res, next) => {
+  const statusCode = err.status || 500;
+  const message = err.message || "Something went wrong";
+  return res.status(500).json({ success: false, message, statusCode });
+});
+
 app.listen(3000, () => {
   console.log("Server running on port 3000");
 });
