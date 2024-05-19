@@ -19,7 +19,7 @@ $(document).ready(function () {
         password: password,
       },
       success: function (response) {
-        alert("Form submitted successfully!");
+        window.location.href = "/user/sign-in";
       },
       error: function (xhr, status, error) {
         console.log(xhr, status, error);

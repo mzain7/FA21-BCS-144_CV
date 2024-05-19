@@ -9,6 +9,7 @@ import ejsMate from "ejs-mate";
 import cookieParser from "cookie-parser";
 
 import userRoutes from "./routes/user.routes.js";
+import { checkUser } from "./utils/user.js";
 
 dotenv.config();
 
@@ -30,13 +31,14 @@ app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.use(express.static( 'public'));
 
+app.use(checkUser);
 
 app.get("/", (req, res) => {
-  res.render("home");
+  res.render("home", { user: req.user });
 });
 
 app.get("/about", (req, res) => {
-  res.render("about");
+  res.render("about", { user: req.user });
 });
 
 app.use("/user", userRoutes);

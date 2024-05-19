@@ -3,11 +3,11 @@ import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 export const renderSignup = (req, res) => {
-  res.render("users/signup");
+  res.render("users/signup", { user: req.user });
 };
 
 export const renderLogin = (req, res) => {
-  res.render("users/login");
+  res.render("users/login", { user: req.user });
 };
 
 export const signup = async (req, res) => {
@@ -47,7 +47,10 @@ export const login = async (req, res) => {
   if (!validPassword) {
     return res.status(400).json("Invalid email or password");
   }
-  const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
+  const token = jwt.sign(
+    { id: validUser._id, pic: validUser.profilePicture },
+    process.env.JWT_SECRET
+  );
   const { password: pass, ...user } = validUser._doc;
   res
     .cookie("access_token", token, {

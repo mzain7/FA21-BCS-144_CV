@@ -17,7 +17,8 @@ $(document).ready(function () {
         password: password,
       },
       success: function (response) {
-        alert("Form submitted successfully!");
+        window.location.href = "/";
+
       },
       error: function (xhr, status, error) {
         $("#signInError").text(xhr.responseJSON);
