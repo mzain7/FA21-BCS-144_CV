@@ -38,6 +38,10 @@ app.get("/about", (req, res) => {
   res.render("about");
 });
 
+app.get("/sign-in", (req, res) => {
+  res.render("users/login");
+});
+
 app.listen(3000, () => {
   console.log("Server running on port 3000");
 });
