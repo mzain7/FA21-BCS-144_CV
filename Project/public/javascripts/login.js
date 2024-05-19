@@ -2,6 +2,8 @@ $(document).ready(function () {
   $("#signInForm").on("submit", function (event) {
     event.preventDefault();
 
+    $('#signInButton').prop('disabled', true);
+
     $.ajax({
       type: "POST",
       url: "/api/auth/login",
@@ -14,6 +16,7 @@ $(document).ready(function () {
       },
       error: function (xhr, status, error) {
         $("#signInError").text(xhr.responseJSON.message);
+        $('#signInButton').prop('disabled', false);
       },
     });
   });

@@ -29,16 +29,14 @@
       />
     </div>
     <button
+      id="signInButton"
       type="submit"
-      class="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 flex justify-center"
+      class="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 flex justify-center disabled:opacity-50 disabled:cursor-not-allowed"
     >
-      <span id="signInText">Sign In</span>
-      <div id="loadingSpinner" style="display: none">
-        <div class="three-dots-loader"></div>
-      </div>
+      Sign In
     </button>
   </form>
-  <p id="signInError" class=" text-red-500 my-1"></p>
+  <p id="signInError" class="text-red-500 my-1"></p>
   <hr />
   <div class="flex gap-2 mt-3">
     <p>Don't have an account?</p>
@@ -47,6 +45,5 @@
     </a>
   </div>
 </div>
-
 
 <script src="/javascripts/login.js"></script>
