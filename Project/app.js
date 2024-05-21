@@ -9,6 +9,7 @@ import ejsMate from "ejs-mate";
 import cookieParser from "cookie-parser";
 
 import userRoutes from "./routes/user.routes.js";
+import propertyRoutes from "./routes/property.routes.js";
 import { checkUser } from "./utils/user.js";
 import { get } from "http";
 import { findProperties } from "./controllers/property.controller.js";
@@ -41,7 +42,6 @@ app.get("/", async (req, res) => {
     findProperties("rent", null),
     findProperties("sale", null),
   ]);
-  console.log(offerProperties);
   res.render("home", {
     user: req.user,
     offerProperties,
@@ -55,6 +55,7 @@ app.get("/about", (req, res) => {
 });
 
 app.use("/user", userRoutes);
+app.use("/property", propertyRoutes);
 
 app.use((err, req, res, next) => {
   const statusCode = err.status || 500;

@@ -69,12 +69,16 @@ export const findProperties = async (type, offer) => {
 
 export const renderProperty = async (req, res, next) => {
   try {
-    const property = await Property.findById(req.params.id);
+    const property = await Property.findById(req.params.id).populate("userRef");
     if (!property) {
       return res.status(400).json("Property not found!");
     }
 
-    res.render("property/property", { property });
+    const similarProperties = await Property.find({
+      type: property.type,
+      _id: { $ne: property._id },
+    }).limit(8);
+    res.render("property/property", { property, similarProperties, user: req.user });
   } catch (error) {
     next(error);
   }
