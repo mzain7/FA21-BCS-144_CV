@@ -66,3 +66,16 @@ export const findProperties = async (type, offer) => {
     console.log(error);
   }
 };
+
+export const renderProperty = async (req, res, next) => {
+  try {
+    const property = await Property.findById(req.params.id);
+    if (!property) {
+      return res.status(400).json("Property not found!");
+    }
+
+    res.render("property/property", { property });
+  } catch (error) {
+    next(error);
+  }
+};
