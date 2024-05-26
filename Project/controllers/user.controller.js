@@ -51,6 +51,7 @@ export const login = async (req, res) => {
     { id: validUser._id, pic: validUser.profilePicture },
     process.env.JWT_SECRET
   );
+  req.session.userId = validUser._id;
   const { password: pass, ...user } = validUser._doc;
   res
     .cookie("access_token", token, {
@@ -64,6 +65,7 @@ export const login = async (req, res) => {
 export const logout = (req, res) => {
   try {
     res.clearCookie("access_token").status(200).json("Logged out successfully");
+    req.session.destroy();
   } catch (err) {
     res.status(500).json(err.message);
   }
