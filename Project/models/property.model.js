@@ -51,8 +51,8 @@ const propertySchema = new mongoose.Schema(
       required: true,
     },
     userRef: {
-      type: String,
-      required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
   },
   { timestamps: true }

@@ -67,9 +67,11 @@ export const findProperties = async (type, offer) => {
   }
 };
 
+
 export const renderProperty = async (req, res, next) => {
   try {
     const property = await Property.findById(req.params.id).populate("userRef");
+    console.log(property);
     if (!property) {
       return res.status(400).json("Property not found!");
     }
