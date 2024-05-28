@@ -63,6 +63,10 @@ app.get("/about", (req, res) => {
   res.render("about", { user: req.user });
 });
 
+app.get("/contact", (req, res) => {
+  res.render("contact", { user: req.user });
+});
+
 app.use("/user", userRoutes);
 app.use("/property", propertyRoutes);
 

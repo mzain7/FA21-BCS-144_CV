@@ -5,3 +5,303 @@
 a:hover{
     text-decoration: none;
 }
+
+
+body {
+    font-family: "Poppins", sans-serif;
+    height: 100vh;
+  }
+  .navbar {
+    position: sticky;
+    background-color: rgb(226, 232 ,240);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    padding: 0.5rem;
+    height: 80px;
+    margin: 15px;
+    border-radius: 16px;
+  }
+  
+  .navbar-brand {
+    font-weight: 500;
+    color: #e69317;
+    font-size: 24px;
+    transition: 0.3s color;
+  }
+  
+  .login-button {
+    background-color: #e69317;
+    color: #fff;
+    font-size: 14px;
+    padding: 8px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: 0.3s background-color;
+  }
+  
+  .login-button:hover {
+    background-color: #ab6e14;
+  }
+  
+  .navbar-toggler {
+    border: none;
+    font-size: 1.25rem;
+  }
+  
+  .navbar-toggler:focus,
+  .btn-close:focus {
+    box-shadow: none;
+    outline: none;
+  }
+  
+  .nav-link {
+    color: #666777;
+    font-weight: 500;
+    position: relative;
+  }
+  
+  .nav-link:hover,
+  .nav-link.active {
+    color: #000;
+  }
+  
+  @media (min-width: 991px) {
+    .nav-link::before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background-color: #e69317;
+      visibility: hidden;
+      transition: 0.3s ease-in-out;
+    }
+  
+    .nav-link:hover::before,
+    .nav-link.active::before {
+      width: 100%;
+      visibility: visible;
+    }
+  }
+  
+  .footer {
+    background-color: #01072a;
+    border-top-left-radius: 75px;
+    border-top-right-radius: 75px;
+    font-size: 13px;
+    line-height: 20px;
+  }
+  
+  .footer-row {
+    width: 85%;
+  }
+  
+  .footer-logo {
+    width: 120px;
+    margin-bottom: 10px;
+  }
+  
+  .email-id {
+    width: fit-content;
+  }
+  .footer-number{
+    width: fit-content;
+    font-size: medium;
+  }
+  
+  
+  .footer ul li {
+    list-style: none;
+    margin-bottom: 12px;
+  }
+  
+  .footer ul li a {
+    text-decoration: none;
+    color: #fff;
+  }
+  
+  
+  .footer-icon {
+    width: 18px;
+    margin-right: 10px;
+  }
+  
+  
+  .social-icons img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    padding: 10px;
+    margin: 5px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 20px;
+    color: #000;
+    background: #fff;
+    cursor: pointer;
+    transition: 0.3s background;
+  }
+  .social-icons img:hover {
+    background: #e69317;
+  }
+  
+  hr {
+    width: 90%;
+    border: 0;
+    border-bottom: 1px solid #ccc;
+    margin: 20px auto;
+  }
+  
+  
+  .carousel-section{
+    margin: 20px;
+    border-radius: 16px;
+    overflow: hidden;
+    height: 550px;
+    position: relative;
+  }
+  
+  .carousel{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+  
+  .hero {
+    background-color: #fff5e2;
+    padding: 50px 0;
+  }
+  
+  .row{
+    margin: 50px;
+    /* background-color: #ffda94; */
+  }
+  
+  .hero .hero-img{
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 16px;
+    object-fit: cover;
+    overflow: hidden;
+  
+  }
+  
+  .r2{
+    flex-direction: row-reverse;
+  }
+  
+  .text-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .text {
+    padding: 20px;
+    text-align: justify;
+  }
+  
+  .text h1, .text h2 {
+    color: #333;
+  }
+  
+  .text p {
+    color: #666;
+  }
+  
+  @media (max-width: 768px) {
+    .hero .container {
+        padding: 0 15px;
+    }
+  }
+  
+
+  .contact-us {
+    margin: 10px auto;
+    width: 60%;
+    /* height: 100vh; */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 16px;
+    box-shadow: 0 0 10px #ccc;
+    background-color: #ccc;
+  }
+  
+  
+  
+  .contact-us h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .contact-form .form-section {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .contact-form .form-section div {
+    width:48%;
+  }
+  
+  .contact-input {
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    border: 0;
+    outline: 0;
+    padding: 1em;
+    display: block;
+    width: 100%;
+    margin-top: 1em;
+    font-family: "Merriweather", sans-serif;
+    box-shadow: 0 0 10px #ccc;
+    resize: none;
+  }
+  
+  .contact-input:focus {
+    border: 2px solid #e69317;
+  }
+  
+  .contact-input-error {
+    border: 2px solid red;
+  }
+  
+  .contact-us textarea {
+    height: 100%;
+  }
+  
+  #input-submit {
+    background-color: #e69317;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-top: 2em;
+    font-family: "Merriweather", sans-serif;
+    box-shadow: 0 0 10px #ccc;
+    transition: 0.3s background;
+  }
+  
+  #input-submit:hover {
+    background-color: #9e6612;
+  }
+  
+  @media screen and (max-width: 768px) {
+      .contact-us {
+        width: 80%;
+      }
+      .contact-form .form-section div {
+        width: 100%;
+      }
+    }
