@@ -1,7 +1,7 @@
 <%- layout('./layouts/boilerplate.ejs') %>
 
 <div class="mx-auto flex flex-col">
-  <div class=" p-7 border-b-2 shadow-lg">
+  <div class="p-7 border-b-2 shadow-lg">
     <form id="propertySearchForm" action="/property/search" method="get" class="flex gap-8 flex-wrap">
       <div class="flex items-center gap-2">
         <label class="whitespace-nowrap font-semibold">Search</label>
@@ -42,6 +42,7 @@
           <option value="createdAt_asc">Oldest</option>
         </select>
       </div>
+      <input type="number" name="startIndex" value="0" hidden>
       <button
         type="submit"
         class="bg-slate-700 w-[200px] mx-auto text-white p-3 rounded-lg uppercase hover:opacity-95"
@@ -57,28 +58,89 @@
     <div class="mx-auto align-middle justify-center p-7 flex flex-wrap gap-4">
       <% if (properties.length === 0) { %>
       <p class="text-xl text-slate-700">No property found!</p>
-      <% } %> <% properties.forEach(property => { %> <%-
-      include('property/propertyItem', { property }) %> <% }) %>
+      <% } %>
+      <% properties.forEach(property => { %>
+        <%- include('property/propertyItem', { property }) %>
+      <% }) %>
 
       <button
         id="showMoreBtn"
-        type="submit"
         class="text-green-700 hover:underline p-7 text-center w-full"
       >
         Show more
+      </button>
+      <button
+        id="nextBtn"
+        class="text-green-700 hover:underline p-7 text-center w-full"
+      >
+        Next
+      </button>
+      <button
+        id="prevBtn"
+        class="text-green-700 hover:underline p-7 text-center w-full"
+      >
+        Previous
       </button>
     </div>
   </div>
 </div>
 
 <script>
-    document.getElementById('showMoreBtn').addEventListener('click', function(event) {
-      event.preventDefault();
-      const form = document.getElementById('propertySearchForm');
-      const currentPropertiesCount = <%= properties.length %>;
-      const url = new URL(form.action);
-      url.searchParams.set('startIndex', currentPropertiesCount);
-      form.action = url.toString();
-      form.submit();
-    });
-  </script>
+  // Function to get query parameter value
+  function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+  }
+
+  // Set form values from URL parameters
+  window.onload = function() {
+    const searchTerm = getQueryParam('searchTerm');
+    const type = getQueryParam('type');
+    const amenities = getQueryParam('amenities');
+    const sortOrder = getQueryParam('sort_order');
+    const startIndex = getQueryParam('startIndex') || 0;
+
+    if (searchTerm) document.querySelector('input[name="searchTerm"]').value = searchTerm;
+    if (type) document.querySelector('select[name="type"]').value = type;
+    if (amenities) {
+      const amenitiesArray = amenities.split(',');
+      amenitiesArray.forEach(amenity => {
+        const option = document.querySelector(`select[name="amenities"] option[value="${amenity}"]`);
+        if (option) option.selected = true;
+      });
+    }
+    if (sortOrder) document.querySelector('select[name="sort_order"]').value = sortOrder;
+    document.querySelector('input[name="startIndex"]').value = startIndex;
+  };
+
+  document.getElementById('showMoreBtn').addEventListener('click', function(event) {
+    event.preventDefault();
+    const form = document.getElementById('propertySearchForm');
+    const startIndex = parseInt(form.startIndex.value);
+    form.startIndex.value = startIndex + 8;
+    form.submit();
+  });
+
+  document.getElementById('nextBtn').addEventListener('click', function(event) {
+    event.preventDefault();
+    const form = document.getElementById('propertySearchForm');
+    const startIndex = parseInt(form.startIndex.value);
+    if (properties.lenght < 8) {
+      document.getElementById('nextBtn').style.display = 'none';
+    }
+    form.startIndex.value = startIndex + 8;
+    form.submit();
+  });
+
+  document.getElementById('prevBtn').addEventListener('click', function(event) {
+    event.preventDefault();
+    const form = document.getElementById('propertySearchForm');
+    const startIndex = parseInt(form.startIndex.value);
+    if (startIndex -8 <= 0) {
+      form.startIndex.value = 0;
+    }else{
+      form.startIndex.value = startIndex - 8;
+    }
+    form.submit();
+  });
+</script>
