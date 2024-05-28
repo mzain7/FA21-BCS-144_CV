@@ -4,11 +4,11 @@ import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 export const renderSignup = (req, res) => {
-  res.render("users/signup", { user: req.user });
+  res.render("users/signup", { });
 };
 
 export const renderLogin = (req, res) => {
-  res.render("users/login", { user: req.user });
+  res.render("users/login", { });
 };
 
 export const signup = async (req, res) => {
@@ -52,8 +52,8 @@ export const login = async (req, res) => {
     { id: validUser._id, pic: validUser.profilePicture },
     process.env.JWT_SECRET
   );
-  req.session.userId = validUser._id;
   const { password: pass, ...user } = validUser._doc;
+  req.session.user = user;
   res
     .cookie("access_token", token, {
       httpOnly: true,
@@ -74,10 +74,8 @@ export const logout = (req, res) => {
 
 export const renderProfile = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id);
-    user.pic = user.profilePicture;
-    const properties = (await Property.find({})) || [];
-    res.render("users/profile", { user, properties });
+    const properties = (await Property.find({userRef: req.user.id})) || [];
+    res.render("users/profile", { properties });
   } catch (error) {
     res.status(500).json(error.message);
   }

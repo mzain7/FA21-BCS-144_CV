@@ -9,7 +9,7 @@
         <img
           id="profile-pic"
           name="profilePicture"
-          src="<%= user.pic %>"
+          src="<%= user.profilePicture %>"
           alt="profile"
           class="rounded-full h-24 w-24 object-cover cursor-pointer mt-2"
         />
@@ -84,6 +84,7 @@
       <% properties.forEach(property => { %>
       <div
         class="bg-white shadow-md hover:shadow-lg transition-shadow rounded-lg w-full sm:w-[330px] my-2"
+        data-property-id="<%= property._id %>"
       >
         <a href="/property/<%= property._id %>">
           <img
@@ -121,7 +122,7 @@
           >
             Delete
           </button>
-          <a href="/update-property/<%= property._id %>">
+          <a href="/property/update-property/<%= property._id %>">
             <button
               class="text-red-white bg-green-600 uppercase px-3 py-2 rounded-xl flex items-center gap-1 text-md font-semibold text-white"
             >

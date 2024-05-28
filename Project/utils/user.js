@@ -1,7 +1,6 @@
 import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
 
-
 export const verifyUser = (req, res, next) => {
   const token = req.cookies.access_token;
   if (!token) {
@@ -15,9 +14,6 @@ export const verifyUser = (req, res, next) => {
     next();
   });
 };
-
-
-
 
 const verifySessionUser = async (req, res, next) => {
   if (!req.session.userId) {
@@ -36,20 +32,11 @@ const verifySessionUser = async (req, res, next) => {
   }
 };
 
-
-
-
-
-
 export const checkUser = (req, res, next) => {
-  req.user = null;
-  const token = req.cookies.access_token;
-  if (token) {
-    jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
-      if (!err) {
-        req.user = decodedToken;
-      }
-    });
+  if (req.session.user) {
+    res.locals.user = req.session.user;
+  } else {
+    res.locals.user = null;
   }
   next();
 };

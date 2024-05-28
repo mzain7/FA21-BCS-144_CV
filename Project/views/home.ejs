@@ -3,7 +3,7 @@
   <div class="h-[100vh] md:h-[60vh] overflow-hidden relative">
     <div
       id="carouselExampleSlidesOnly"
-      class="carousel slide absolute bg-black"
+      class="carousel slide absolute bg-black w-full h-full object-cover top-0 left-0 -z-10"
       data-ride="carousel"
     >
       <div class="carousel-inner">
@@ -11,11 +11,7 @@
           <img class="d-block w-100" src="img/img (1).jpg" alt="First slide" />
         </div>
         <div class="carousel-item opacity-50">
-          <img
-            class="d-block w-100"
-            src="img/img (2).jpg"
-            alt="Second slide"
-          />
+          <img class="d-block w-100" src="img/img (2).jpg" alt="Second slide" />
         </div>
         <div class="carousel-item opacity-50">
           <img class="d-block w-100" src="img/img (3).jpg" alt="Third slide" />
@@ -83,13 +79,60 @@
   <hr />
   <div class="max-w-6xl mx-auto p-3 pt-0 flex flex-col gap-8 mb-10">
     <%- include('./property/carouselProperty.ejs', { properties:
-    offerProperties, title: 'Recent offers', linkText: 'Show more offers',
-    linkTo: '/search?offer=true' }) %> <%-
+    offerProperties, title: 'Recent offers' , linkText: 'Show more offers' ,
+    linkTo: '/property/search?offer=true' }) %> <%-
     include('./property/carouselProperty.ejs', { properties: rentProperties,
-    title: 'Recent places for rent', linkText: 'Show more places for rent',
-    linkTo: '/search?type=rent' }) %> <%-
+    title: 'Recent places for rent' , linkText: 'Show more places for rent' ,
+    linkTo: '/property/search?type=rent' }) %> <%-
     include('./property/carouselProperty.ejs', { properties: saleProperties,
-    title: 'Recent places for sale', linkText: 'Show more places for sale',
-    linkTo: '/search?type=sale' }) %>
+    title: 'Recent places for sale' , linkText: 'Show more places for sale' ,
+    linkTo: '/property/search?type=sale' }) %>
   </div>
+
+  <section class="hero">
+    <div class="container">
+      <div class="row r1">
+        <div class="col-lg-6 text-section">
+          <div class="text">
+            <h1>Welcome to Our Real Estate Website</h1>
+            <p>
+              Find your dream home with us. We offer a wide range of properties
+              tailored to your needs.
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-6 hero-img-container">
+          <img src="img/img (1).webp" alt="Image 1" class="hero-img" />
+        </div>
+      </div>
+      <div class="row r2">
+        <div class="col-lg-6 order-lg-1 text-section">
+          <div class="text">
+            <h2>Discover Amazing Properties</h2>
+            <p>
+              Explore our listings and find the perfect home for you and your
+              family.
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-6 order-lg-2 hero-img-container">
+          <img src="img/img (2).webp" alt="Image 2" class="hero-img" />
+        </div>
+      </div>
+      <div class="row r3">
+        <div class="col-lg-6 text-section">
+          <div class="text">
+            <h2>Expert Real Estate Agents</h2>
+            <p>
+              Our team of experienced agents is here to assist you at every step
+              of the way.
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-6 hero-img-container">
+          <img src="img/img (3).webp" alt="Image 3" class="hero-img" />
+        </div>
+      </div>
+    </div>
+  </section>
 </div>

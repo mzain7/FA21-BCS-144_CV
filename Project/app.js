@@ -38,7 +38,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      maxAge: 1000 * 60 * 60 * 24,
+      maxAge: 1000 * 60 * 60 * 24 * 7,
     },
   })
 );
@@ -52,7 +52,6 @@ app.get("/", async (req, res) => {
     findProperties("sale", null),
   ]);
   res.render("home", {
-    user: req.user,
     offerProperties,
     rentProperties,
     saleProperties,
@@ -60,11 +59,11 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/about", (req, res) => {
-  res.render("about", { user: req.user });
+  res.render("about", { });
 });
 
 app.get("/contact", (req, res) => {
-  res.render("contact", { user: req.user });
+  res.render("contact", { });
 });
 
 app.use("/user", userRoutes);
