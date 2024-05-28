@@ -77,14 +77,13 @@
           <span class="font-semibold">Phone: </span><%= property.userRef.phone %>
         </p>
         <label for="message" class="text-sm font-semibold">Message:</label>
-        <textarea name="message" id="message" rows="3" placeholder="Enter your message here..." class="w-full border p-3 rounded-lg pt-2"></textarea>
+        <textarea name="message" id="message" rows="3" placeholder="Enter your message here..." class="w-full border p-3 rounded-lg pt-2">Hello, I am interested in the property <%= property.name %> located at <%= property.address %>. Please provide me with more details.</textarea>
         <div class="flex md:flex-col gap-2 mt-2">
-          <% let message = `Hello, I am interested in the property ${property.name} located at ${property.address}. Please provide me with more details.`; %>
-          <a href="mailto:<%= property.userRef.email %>?subject=Regarding <%= property.name %>&body=<%= encodeURIComponent(message) %>" class="bg-slate-700 text-white text-center p-3 uppercase rounded-lg hover:opacity-95 w-1/2 md:w-full">
+          <a id="sendEmailBtn" href="#" class="bg-slate-700 text-white text-center p-3 uppercase rounded-lg hover:opacity-95 w-1/2 md:w-full">
             Send Email
           </a>
 
-          <a href="https://wa.me/<%= property.userRef.phone %>?text=<%= encodeURIComponent(message) %>" class="bg-green-700 text-white text-center p-3 uppercase rounded-lg hover:opacity-95 w-1/2 md:w-full">
+          <a id="sendWhatsAppBtn" href="#" class="bg-green-700 text-white text-center p-3 uppercase rounded-lg hover:opacity-95 w-1/2 md:w-full">
             WhatsApp
           </a>
         </div>
@@ -102,3 +101,25 @@
   </div>
   <% } %>
 </main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const emailBtn = document.getElementById('sendEmailBtn');
+    const whatsappBtn = document.getElementById('sendWhatsAppBtn');
+    const messageTextarea = document.getElementById('message');
+    const email = '<%= property.userRef.email %>';
+    const phone = '<%= property.userRef.phone %>';
+
+    function updateLinks() {
+      const message = encodeURIComponent(messageTextarea.value);
+      emailBtn.href = `mailto:${email}?subject=Regarding <%= property.name %>&body=${message}`;
+      whatsappBtn.href = `https://wa.me/${phone}?text=${message}`;
+    }
+
+    // Update links initially
+    updateLinks();
+
+    // Update links on textarea change
+    messageTextarea.addEventListener('input', updateLinks);
+  });
+</script>

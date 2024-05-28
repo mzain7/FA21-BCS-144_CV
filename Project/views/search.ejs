@@ -125,8 +125,8 @@
     event.preventDefault();
     const form = document.getElementById('propertySearchForm');
     const startIndex = parseInt(form.startIndex.value);
-    if (properties.lenght < 8) {
-      document.getElementById('nextBtn').style.display = 'none';
+    if (<%=properties.length%> < 8) {
+      document.getElementById('nextBtn').disable = true;
     }
     form.startIndex.value = startIndex + 8;
     form.submit();
