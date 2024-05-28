@@ -45,7 +45,7 @@ export const getProperties = async (req, res, next) => {
       .limit(limit)
       .skip(startIndex);
 
-    return res.status(200).json(properties);
+    return res.render("search", { properties, user: req.user });
   } catch (error) {
     next(error);
   }
@@ -81,6 +81,26 @@ export const renderProperty = async (req, res, next) => {
       _id: { $ne: property._id },
     }).limit(8);
     res.render("property/property", { property, similarProperties, user: req.user });
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+export const deleteProperty = async (req, res) => {
+  const property = await Property.findById(req.params.id);
+
+  if (!property) {
+    return res.status(400).json("Property not found!");
+  }
+
+  if (req.user.id !== property.userRef) {
+    return res.status(403).json("You can delete only your property!");
+  }
+
+  try {
+    await Property.findByIdAndDelete(req.params.id);
+    res.status(200).json("Property has been deleted!");
   } catch (error) {
     next(error);
   }

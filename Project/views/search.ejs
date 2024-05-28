@@ -1,0 +1,84 @@
+<%- layout('./layouts/boilerplate.ejs') %>
+
+<div class="mx-auto flex flex-col">
+  <div class=" p-7 border-b-2 shadow-lg">
+    <form id="propertySearchForm" action="/property/search" method="get" class="flex gap-8 flex-wrap">
+      <div class="flex items-center gap-2">
+        <label class="whitespace-nowrap font-semibold">Search</label>
+        <input
+          type="text"
+          name="searchTerm"
+          placeholder="Search..."
+          class="border rounded-lg p-3"
+        />
+      </div>
+      <div class="flex items-center gap-2">
+        <label class="font-semibold">Type:</label>
+        <select name="type" class="border rounded-lg p-3">
+          <option value="all">Rent & Sale</option>
+          <option value="rent">Rent</option>
+          <option value="sale">Sale</option>
+        </select>
+      </div>
+
+      <div class="flex gap-2 flex-wrap items-center">
+        <label class="font-semibold">Amenities:</label>
+        <select
+          name="amenities"
+          multiple
+          class="max-w-[400px] min-w-[200px] border rounded-lg p-3 max-h-[50px] overflow-y-auto"
+        >
+          <option value="parking">Parking</option>
+          <option value="furnished">Furnished</option>
+          <option value="offer">Offer</option>
+        </select>
+      </div>
+      <div class="flex items-center gap-2">
+        <label class="font-semibold">Sort:</label>
+        <select name="sort_order" class="border rounded-lg p-3">
+          <option value="regularPrice_desc">Price high to low</option>
+          <option value="regularPrice_asc">Price low to high</option>
+          <option value="createdAt_desc">Latest</option>
+          <option value="createdAt_asc">Oldest</option>
+        </select>
+      </div>
+      <button
+        type="submit"
+        class="bg-slate-700 w-[200px] mx-auto text-white p-3 rounded-lg uppercase hover:opacity-95"
+      >
+        Search
+      </button>
+    </form>
+  </div>
+  <div class="flex-1">
+    <h1 class="text-3xl font-semibold border-b p-3 text-slate-700 mt-1">
+      Search results:
+    </h1>
+    <div class="mx-auto align-middle justify-center p-7 flex flex-wrap gap-4">
+      <% if (properties.length === 0) { %>
+      <p class="text-xl text-slate-700">No property found!</p>
+      <% } %> <% properties.forEach(property => { %> <%-
+      include('property/propertyItem', { property }) %> <% }) %>
+
+      <button
+        id="showMoreBtn"
+        type="submit"
+        class="text-green-700 hover:underline p-7 text-center w-full"
+      >
+        Show more
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+    document.getElementById('showMoreBtn').addEventListener('click', function(event) {
+      event.preventDefault();
+      const form = document.getElementById('propertySearchForm');
+      const currentPropertiesCount = <%= properties.length %>;
+      const url = new URL(form.action);
+      url.searchParams.set('startIndex', currentPropertiesCount);
+      form.action = url.toString();
+      form.submit();
+    });
+  </script>

@@ -11,12 +11,10 @@ import cookieParser from "cookie-parser";
 import userRoutes from "./routes/user.routes.js";
 import propertyRoutes from "./routes/property.routes.js";
 import { checkUser } from "./utils/user.js";
-import { get } from "http";
 import { findProperties } from "./controllers/property.controller.js";
 
 dotenv.config();
 
-// Connect to MongoDB
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {
@@ -33,6 +31,17 @@ app.use(cookieParser());
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.use(express.static("public"));
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || "your_secret_key",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24,
+    },
+  })
+);
 
 app.use(checkUser);
 

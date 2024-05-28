@@ -1,0 +1,244 @@
+<%- layout('./layouts/boilerplate.ejs') %>
+
+<div class="p-3">
+  <div class="max-w-lg mx-auto">
+    <h1 class="text-3xl font-semibold text-center my-7">Profile</h1>
+    <form id="profile-form" class="flex flex-col gap-4">
+      <input type="file" accept="images/*" id="file-input" hidden />
+      <div class="self-center relative">
+        <img
+          id="profile-pic"
+          name="profilePicture"
+          src="<%= user.pic %>"
+          alt="profile"
+          class="rounded-full h-24 w-24 object-cover cursor-pointer mt-2"
+        />
+        <i class="fas fa-edit text-2xl absolute right-0 -bottom-1"> </i>
+      </div>
+      <div class="flex flex-col">
+        <label for="username">UserName: </label>
+        <input
+          type="text"
+          placeholder="username"
+          id="username"
+          name="username"
+          class="border p-3 rounded-lg"
+          value="<%= user.username %>"
+        />
+      </div>
+      <div class="flex flex-col">
+        <label for="email">Email: </label>
+        <input
+          type="email"
+          name="email"
+          placeholder="email"
+          id="email"
+          class="border p-3 rounded-lg"
+          value="<%= user.email %>"
+        />
+      </div>
+      <div class="flex flex-col">
+        <label for="password">Password: </label>
+        <input
+          type="text"
+          name="password"
+          placeholder="password"
+          id="password"
+          class="border p-3 rounded-lg"
+        />
+      </div>
+      <button
+        type="submit"
+        id="update-button"
+        class="bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95"
+      >
+        Update
+      </button>
+      <a
+        href="/property/create-property"
+        class="bg-green-700 text-white p-3 rounded-lg uppercase text-center hover:opacity-95"
+      >
+        Create New Property
+      </a>
+    </form>
+    <div class="flex justify-evenly mt-4">
+      <button
+        id="delete-account-button"
+        class="text-red-white bg-red-600 uppercase px-3 py-2 rounded-xl flex items-center gap-1 text-md font-semibold text-white"
+      >
+        Delete Account
+      </button>
+      <button
+        id="signout-button"
+        class="text-red-white bg-slate-600 uppercase px-3 py-2 rounded-xl flex items-center gap-1 text-md font-semibold text-white"
+      >
+        Signout
+      </button>
+    </div>
+    <p class="text-red-700 mt-5" id="properties-error"></p>
+  </div>
+  <% if (properties && properties.length > 0) { %>
+  <div class="flex flex-col gap-4 max-w-6xl mx-auto">
+    <h1 class="text-center mt-7 text-2xl font-semibold">Your Properties</h1>
+    <div class="flex overflow-x-auto gap-2">
+      <% properties.forEach(property => { %>
+      <div
+        class="bg-white shadow-md hover:shadow-lg transition-shadow rounded-lg w-full sm:w-[330px] my-2"
+      >
+        <a href="/property/<%= property._id %>">
+          <img
+            src="<%= property.imageUrls[0] || '/img/default-house.jpeg' %>"
+            alt="property cover"
+            class="h-[230px] w-full object-cover transition-scale duration-300"
+          />
+          <div class="p-3 flex flex-col gap-2 w-full">
+            <p class="truncate text-lg font-semibold text-slate-700">
+              <%= property.name %>
+            </p>
+            <div class="flex items-center gap-1">
+              <i class="h-4 w-4 text-green-700">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  class="bi bi-geo-alt"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M12.166 8.94C10.815 10.616 8 14 8 14s-2.815-3.384-4.166-5.06C2.32 7.622 2 6.56 2 5.5 2 3.014 4.014 1 6.5 1S11 3.014 11 5.5c0 1.06-.32 2.122-1.166 3.44zM6.5 6.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"
+                  />
+                </svg>
+              </i>
+              <p class="text-sm text-gray-600 truncate w-full">
+                <%= property.address %>
+              </p>
+            </div>
+          </div>
+        </a>
+        <div class="flex justify-evenly mb-2">
+          <button
+            class="text-red-white bg-red-600 uppercase px-3 py-2 rounded-xl flex items-center gap-1 text-md font-semibold text-white"
+            onclick="handlePropertyDelete('<%= property._id %>')"
+          >
+            Delete
+          </button>
+          <a href="/update-property/<%= property._id %>">
+            <button
+              class="text-red-white bg-green-600 uppercase px-3 py-2 rounded-xl flex items-center gap-1 text-md font-semibold text-white"
+            >
+              Edit
+            </button>
+          </a>
+        </div>
+      </div>
+      <% }); %>
+    </div>
+  </div>
+  <% } %>
+</div>
+
+<script>
+  document.getElementById("profile-pic").addEventListener("click", () => {
+    document.getElementById("file-input").click();
+  });
+
+  document
+    .getElementById("file-input")
+    .addEventListener("change", async (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+      const data = new FormData();
+      data.append("file", file);
+      data.append("upload_preset", "ProfilePictures");
+      data.append("cloud_name", "dhk5vhnp4");
+      const res = await fetch(
+        "https://api.cloudinary.com/v1_1/dhk5vhnp4/image/upload",
+        {
+          method: "POST",
+          body: data,
+        }
+      );
+      const imgUrl = await res.json();
+      document.getElementById("profile-pic").src = imgUrl.secure_url;
+    });
+
+  document
+    .getElementById("profile-form")
+    .addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const formData = {
+        username: document.getElementById("username").value,
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value,
+        profilePicture: document.getElementById("profile-pic").src,
+      };
+      try {
+        const res = await fetch(`/user/<%= user._id %>`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+        const data = await res.json();
+        if (data.error) {
+          alert(data.error.message);
+        } else {
+          alert("Profile updated successfully");
+        }
+      } catch (error) {
+        alert(error.message);
+      }
+    });
+
+  document
+    .getElementById("delete-account-button")
+    .addEventListener("click", async () => {
+      try {
+        const res = await fetch(`/user/<%= user._id %>`, {
+          method: "DELETE",
+        });
+        const data = await res.json();
+        if (data.error) {
+          alert(data.error.message);
+        } else {
+          alert("Account deleted successfully");
+          window.location.href = "/";
+        }
+      } catch (error) {
+        alert(error.message);
+      }
+    });
+
+  document
+    .getElementById("signout-button")
+    .addEventListener("click", async () => {
+      try {
+        const res = await fetch("/user/logout");
+        const data = await res.json();
+        if (data.error) {
+          alert(data.error.message);
+        } else {
+          alert("Signed out successfully");
+          window.location.href = "/";
+        }
+      } catch (error) {
+        alert(error.message);
+      }
+    });
+
+  async function handlePropertyDelete(propertyId) {
+    try {
+      const res = await fetch(`/property/${propertyId}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        alert(data.message);
+        return;
+      }
+      document.querySelector(`div[data-property-id="${propertyId}"]`).remove();
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+</script>
