@@ -98,12 +98,6 @@ export const renderProperty = async (req, res, next) => {
 
 export const renderVisitedProperties = async (req, res, next) => {
   try {
-    if (
-      !req.session.visitedProperties ||
-      req.session.visitedProperties.length === 0
-    ) {
-      return res.status(200).json("No visited properties found.");
-    }
 
     const visitedProperties = await Property.find({
       _id: { $in: req.session.visitedProperties },

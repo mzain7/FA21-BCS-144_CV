@@ -2,7 +2,7 @@
 
 <div class="mx-auto align-middle justify-center p-7 flex flex-wrap gap-4">
   <% if (properties.length === 0) { %>
-  <p class="text-xl text-slate-700">No property found!</p>
+  <p class="text-xl text-slate-700 h-[30vh] ">No property found!</p>
   <% } %> <% properties.forEach(property => { %> <%-
   include('propertyItem', { property }) %> <% }) %>
 </div>
