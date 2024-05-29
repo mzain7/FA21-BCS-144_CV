@@ -1,0 +1,22 @@
+<% if (properties && properties.length > 0) { %>
+    <div class="">
+      <div class="my-3">
+        <h2 class="text-2xl font-semibold text-slate-600"><%= title %></h2>
+        <% if (linkText && linkTo) { %>
+          <a class="text-sm text-blue-800 hover:underline pl-1" href="<%= linkTo %>">
+            <%= linkText %>
+          </a>
+        <% } %>
+      </div>
+      <hr />
+      <!-- Assuming you have a carousel component or library available in your EJS setup -->
+      <div class="flex overflow-x-auto pb-8 pt-2">
+        <% properties.forEach(function(property) { %>
+          <!-- Assuming you have a way to render PropertyItem within the carousel -->
+          <%- include('propertyItem.ejs',{ property: property }) %>
+        <% }); %>
+      </div>
+      <hr />
+    </div>
+  <% } %>
+  

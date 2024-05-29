@@ -12,6 +12,7 @@ import userRoutes from "./routes/user.routes.js";
 import propertyRoutes from "./routes/property.routes.js";
 import { checkUser } from "./utils/user.js";
 import { findProperties } from "./controllers/property.controller.js";
+import Property from "./models/property.model.js";
 
 dotenv.config();
 
@@ -51,7 +52,11 @@ app.get("/", async (req, res) => {
     findProperties("rent", null),
     findProperties("sale", null),
   ]);
+
+  const featuredProperties = await Property.find({ isFeatured: true }).limit(5);
+  console.log(featuredProperties);
   res.render("home", {
+    featuredProperties,
     offerProperties,
     rentProperties,
     saleProperties,

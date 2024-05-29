@@ -1,0 +1,49 @@
+<%- layout('./layouts/boilerplate.ejs') %>
+<div class="p-3 max-w-lg mx-auto flex flex-col items-center">
+  <h1 class="text-3xl text-center font-semibold my-7">
+    Sign into your account
+  </h1>
+  <form id="signInForm" class="flex flex-col gap-4 w-full">
+    <div class="flex flex-col">
+      <label for="email">Email: </label>
+      <input
+        type="email"
+        placeholder="Email"
+        class="border p-3 rounded-lg"
+        id="email"
+        name="email"
+        required
+      />
+    </div>
+    <div class="flex flex-col">
+      <label for="password">Password: </label>
+      <input
+        type="password"
+        placeholder="Password"
+        class="border p-3 rounded-lg"
+        id="password"
+        name="password"
+        required
+        minlength="8"
+        maxlength="20"
+      />
+    </div>
+    <button
+      id="signInButton"
+      type="submit"
+      class="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 flex justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      Sign In
+    </button>
+  </form>
+  <p id="signInError" class="text-red-500 my-1"></p>
+  <hr />
+  <div class="flex gap-2 mt-3">
+    <p>Don't have an account?</p>
+    <a href="/user/sign-up">
+      <span class="text-blue-700">Sign up</span>
+    </a>
+  </div>
+</div>
+
+<script src="/javascripts/login.js"></script>

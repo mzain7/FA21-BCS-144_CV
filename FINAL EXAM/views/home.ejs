@@ -79,8 +79,11 @@
   <hr />
   <div class="max-w-6xl mx-auto p-3 pt-0 flex flex-col gap-8 mb-10">
     <%- include('./property/carouselProperty.ejs', { properties:
-    offerProperties, title: 'Recent offers' , linkText: 'Show more offers' ,
-    linkTo: '/property/search?offer=true' }) %> <%-
+    featuredProperties, title: 'Featured Properties' , linkText: null ,
+    linkTo: null }) %> <%-
+    include('./property/carouselProperty.ejs', { properties: offerProperties,
+    title: 'Recent offers' , linkText: 'Show more offers' , linkTo:
+    '/property/search?offer=true' }) %> <%-
     include('./property/carouselProperty.ejs', { properties: rentProperties,
     title: 'Recent places for rent' , linkText: 'Show more places for rent' ,
     linkTo: '/property/search?type=rent' }) %> <%-

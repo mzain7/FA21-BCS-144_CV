@@ -67,13 +67,20 @@ export const findProperties = async (type, offer) => {
   }
 };
 
-
 export const renderProperty = async (req, res, next) => {
   try {
     const property = await Property.findById(req.params.id).populate("userRef");
     console.log(property);
     if (!property) {
       return res.status(400).json("Property not found!");
+    }
+
+    if (!req.session.visitedProperties) {
+      req.session.visitedProperties = [];
+    }
+
+    if (!req.session.visitedProperties.includes(property._id.toString())) {
+      req.session.visitedProperties.push(property._id.toString());
     }
 
     const similarProperties = await Property.find({
@@ -86,6 +93,24 @@ export const renderProperty = async (req, res, next) => {
   }
 };
 
+export const renderVisitedProperties = async (req, res, next) => {
+  try {
+    if (
+      !req.session.visitedProperties ||
+      req.session.visitedProperties.length === 0
+    ) {
+      return res.status(200).json("No visited properties found.");
+    }
+
+    const visitedProperties = await Property.find({
+      _id: { $in: req.session.visitedProperties },
+    });
+
+    res.render("property/visitedProperty", { properties: visitedProperties });
+  } catch (error) {
+    next(error);
+  }
+};
 
 export const deleteProperty = async (req, res) => {
   const property = await Property.findById(req.params.id);
@@ -123,11 +148,13 @@ export const renderUpdateProperty = async (req, res) => {
   return res.render("property/updateProperty", { property });
 };
 
-
 export const createProperty = async (req, res, next) => {
   try {
     console.log(req.body);
-    const property = await Property.create({ ...req.body, userRef: req.user.id });
+    const property = await Property.create({
+      ...req.body,
+      userRef: req.user.id,
+    });
     property.save();
     console.log(property);
     return res.status(201).json(property);

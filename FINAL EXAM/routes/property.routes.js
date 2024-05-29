@@ -6,6 +6,7 @@ import {
   renderCreateProperty,
   renderProperty,
   renderUpdateProperty,
+  renderVisitedProperties,
   updateProperty,
 } from "../controllers/property.controller.js";
 import { verifyUser } from "../utils/user.js";
@@ -15,6 +16,7 @@ const router = express.Router();
 router.get("/search", getProperties);
 router.route("/create-property").get(verifyUser, renderCreateProperty).post(verifyUser, createProperty)
 router.route("/update-property/:id").get(verifyUser, renderUpdateProperty).put(verifyUser, updateProperty);
+router.get("/visted-properties", renderVisitedProperties);
 router.get("/:id", renderProperty);
 router.route("/:id").get(renderProperty).delete(verifyUser, deleteProperty);
 

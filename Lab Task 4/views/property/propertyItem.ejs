@@ -1,0 +1,52 @@
+<% function formatPrice(price) { %>
+    <%= new Intl.NumberFormat('en-US').format(price) %>
+  <% } %>
+  
+  <div class="pr-2">
+    <div class="bg-white shadow-md hover:shadow-lg transition-shadow overflow-hidden rounded-lg mr-3 w-full sm:w-[330px] my-2 max-w-[350px] min-w-[280px]">
+      <a href="/property/<%= property._id %>">
+        <img
+          src="<%= property.imageUrls[0] || 'https://53.fs1.hubspotusercontent-na1.net/hub/53/hubfs/Sales_Blog/real-estate-business-compressor.jpg?width=595&height=400&name=real-estate-business-compressor.jpg' %>"
+          alt="property cover"
+          class="h-[230px] w-full object-cover hover:scale-105 transition-scale duration-300"
+        />
+        <div class="p-3 flex flex-col gap-2 w-full">
+          <p class="truncate text-lg font-semibold text-slate-700">
+            <%= property.name %>
+          </p>
+          <div class="flex items-center gap-1">
+            <i class="h-4 w-4 text-green-700">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                <path d="M12.166 8.94C10.815 10.616 8 14 8 14s-2.815-3.384-4.166-5.06C2.32 7.622 2 6.56 2 5.5 2 3.014 4.014 1 6.5 1S11 3.014 11 5.5c0 1.06-.32 2.122-1.166 3.44zM6.5 6.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+              </svg>
+            </i>
+            <p class="text-sm text-gray-600 truncate w-full">
+              <%= property.address %>
+            </p>
+          </div>
+          <p class="text-sm text-gray-600 line-clamp-2">
+            <%= property.description %>
+          </p>
+          <p class="text-slate-500 mt-2 font-semibold">
+            $<%= property.offer ? formatPrice(property.discountPrice) : formatPrice(property.regularPrice) %>
+            <%= property.type === 'rent' ? ' / month' : '' %>
+          </p>
+          <ul class="text-green-900 font-semibold text-sm flex flex-wrap items-center gap-4">
+            <li class="flex items-center gap-1 whitespace-nowrap">
+              <i class="fas fa-bed text-lg"></i>
+              <%= property.bedrooms > 1 ? property.bedrooms + ' beds' : property.bedrooms + ' bed' %>
+            </li>
+            <li class="flex items-center gap-1 whitespace-nowrap">
+              <i class="fas fa-bath text-lg"></i>
+              <%= property.bathrooms > 1 ? property.bathrooms + ' baths' : property.bathrooms + ' bath' %>
+            </li>
+            <li class="flex items-center gap-1 whitespace-nowrap">
+              <i class="fas fa-chair text-lg"></i>
+              <%= property.furnished ? 'Furnished' : 'Unfurnished' %>
+            </li>
+          </ul>
+        </div>
+      </a>
+    </div>
+  </div>
+  

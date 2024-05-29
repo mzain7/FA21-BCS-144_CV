@@ -2,7 +2,12 @@
 
 <div class="mx-auto flex flex-col">
   <div class="p-7 border-b-2 shadow-lg">
-    <form id="propertySearchForm" action="/property/search" method="get" class="flex gap-8 flex-wrap">
+    <form
+      id="propertySearchForm"
+      action="/property/search"
+      method="get"
+      class="flex gap-8 flex-wrap"
+    >
       <div class="flex items-center gap-2">
         <label class="whitespace-nowrap font-semibold">Search</label>
         <input
@@ -42,7 +47,7 @@
           <option value="createdAt_asc">Oldest</option>
         </select>
       </div>
-      <input type="number" name="startIndex" value="0" hidden>
+      <input type="number" name="startIndex" value="0" hidden />
       <button
         type="submit"
         class="bg-slate-700 w-[200px] mx-auto text-white p-3 rounded-lg uppercase hover:opacity-95"
@@ -58,17 +63,9 @@
     <div class="mx-auto align-middle justify-center p-7 flex flex-wrap gap-4">
       <% if (properties.length === 0) { %>
       <p class="text-xl text-slate-700">No property found!</p>
-      <% } %>
-      <% properties.forEach(property => { %>
-        <%- include('property/propertyItem', { property }) %>
-      <% }) %>
+      <% } %> <% properties.forEach(property => { %> <%-
+      include('property/propertyItem', { property }) %> <% }) %>
 
-      <button
-        id="showMoreBtn"
-        class="text-green-700 hover:underline p-7 text-center w-full"
-      >
-        Show more
-      </button>
       <button
         id="nextBtn"
         class="text-green-700 hover:underline p-7 text-center w-full"
@@ -94,6 +91,7 @@
 
   // Set form values from URL parameters
   window.onload = function() {
+    disableBtn();
     const searchTerm = getQueryParam('searchTerm');
     const type = getQueryParam('type');
     const amenities = getQueryParam('amenities');
@@ -113,21 +111,10 @@
     document.querySelector('input[name="startIndex"]').value = startIndex;
   };
 
-  document.getElementById('showMoreBtn').addEventListener('click', function(event) {
-    event.preventDefault();
-    const form = document.getElementById('propertySearchForm');
-    const startIndex = parseInt(form.startIndex.value);
-    form.startIndex.value = startIndex + 8;
-    form.submit();
-  });
-
   document.getElementById('nextBtn').addEventListener('click', function(event) {
     event.preventDefault();
     const form = document.getElementById('propertySearchForm');
     const startIndex = parseInt(form.startIndex.value);
-    if (<%=properties.length%> < 8) {
-      document.getElementById('nextBtn').disable = true;
-    }
     form.startIndex.value = startIndex + 8;
     form.submit();
   });
@@ -137,10 +124,18 @@
     const form = document.getElementById('propertySearchForm');
     const startIndex = parseInt(form.startIndex.value);
     if (startIndex -8 <= 0) {
-      form.startIndex.value = 0;
+      return;
     }else{
       form.startIndex.value = startIndex - 8;
     }
     form.submit();
   });
+
+  function disableBtn(){
+   const nextBtn = document.getElementById('nextBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    if(<%= properties.length %> < 8){
+      nextBtn.disabled = true;
+    }
+  }
 </script>

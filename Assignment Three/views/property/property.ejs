@@ -1,0 +1,125 @@
+<%- layout('./layouts/boilerplate.ejs') %>
+
+<main class="max-w-7xl mx-auto">
+  <% if (property) { %>
+  <div class="m-2">
+    <p class="p-4 pb-0 text-2xl font-semibold"><%= property.name %></p>
+    <p class="p-4 pt-0 text-sm text-gray-600"><%= property.address %></p>
+
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+        <% property.imageUrls.forEach((image, index) => { %>
+        <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+          <img class="d-block w-100 h-[300px] md:h-[550px]" src="<%= image %>" alt="Property Image" />
+        </div>
+        <% }) %>
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+
+    <div class="flex flex-col mt-4 justify-between md:flex-row mb-6">
+      <div class="flex flex-col md:w-2/3 p-3 my-7 gap-4">
+        <div class="flex justify-between items-center">
+          <p class="text-2xl font-semibold inline-block"><%= property.name %></p>
+          <p class="inline-block min-w-fit text-2xl font-semibold text-slate-700">
+            $ <%= property.offer ? property.discountPrice.toLocaleString("en-US") : property.regularPrice.toLocaleString("en-US") %> <%= property.type === "rent" ? " / month" : "" %>
+          </p>
+        </div>
+        <p class="flex items-center gap-2 text-slate-600 text-sm">
+          <!-- Insert location icon HTML/JSX equivalent here -->
+          <%= property.address %>
+        </p>
+        <hr />
+        <p class="text-slate-800">
+          <span class="font-semibold text-black">Description: </span><br />
+          <%= property.description %>
+        </p>
+        <hr />
+        <span class="font-semibold text-black">Amenities: </span>
+        <ul class="text-green-900 font-semibold text-sm flex flex-wrap items-center gap-4 sm:gap-6">
+          <li class="flex items-center gap-1 whitespace-nowrap">
+            <i class="fas fa-bed text-lg"></i>
+            <% if (property.bedrooms > 1) { %> <%= `${property.bedrooms} beds` %> <% } else { %> <%= `${property.bedrooms} bed` %> <% } %>
+          </li>
+          <li class="flex items-center gap-1 whitespace-nowrap">
+            <i class="fas fa-bath text-lg"></i>
+            <% if (property.bathrooms > 1) { %> <%= `${property.bathrooms} baths` %> <% } else { %> <%= `${property.bathrooms} bath` %> <% } %>
+          </li>
+          <li class="flex items-center gap-1 whitespace-nowrap">
+            <i class="fas fa-parking text-lg"></i>
+            <%= property.parking ? "Parking spot" : "No Parking" %>
+          </li>
+          <li class="flex items-center gap-1 whitespace-nowrap">
+            <i class="fas fa-chair text-lg"></i>
+            <%= property.furnished ? "Furnished" : "Unfurnished" %>
+          </li>
+        </ul>
+        <hr />
+      </div>
+      <div class="w-full md:w-2/6 bg-gray-200 rounded-lg p-3 flex flex-col gap-1 justify-evenly">
+        <p class="mx-auto text-2xl font-bold">Contact Owner</p>
+        <p>
+          <span class="font-semibold">Email: </span><%= property.userRef.email %>
+        </p>
+        <p>
+          <span class="font-semibold">Phone: </span><%= property.userRef.phone %>
+        </p>
+        <label for="message" class="text-sm font-semibold">Message:</label>
+        <textarea name="message" id="message" rows="3" placeholder="Enter your message here..." class="w-full border p-3 rounded-lg pt-2">Hello, I am interested in the property <%= property.name %> located at <%= property.address %>. Please provide me with more details.</textarea>
+        <div class="flex md:flex-col gap-2 mt-2">
+          <a id="sendEmailBtn" href="#" class="bg-slate-700 text-white text-center p-3 uppercase rounded-lg hover:opacity-95 w-1/2 md:w-full">
+            Send Email
+          </a>
+
+          <a id="sendWhatsAppBtn" href="#" class="bg-green-700 text-white text-center p-3 uppercase rounded-lg hover:opacity-95 w-1/2 md:w-full">
+            WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div class="mt-8 sm:px-14">
+      <%- include('./carouselProperty.ejs', { properties: similarProperties, title: `Similar Houses around ${property.address}`, linkText: 'Show more places', linkTo: '/search?type=all' }) %>
+    </div>
+  </div>
+  <% } else { %>
+  <div class="flex flex-col items-center justify-center h-[70vh]">
+    <p class="text-2xl font-semibold">Property not found</p>
+    <a href="/search" class="text-blue-500 hover:underline">Go back to search</a>
+  </div>
+  <% } %>
+</main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const emailBtn = document.getElementById('sendEmailBtn');
+    const whatsappBtn = document.getElementById('sendWhatsAppBtn');
+    const messageTextarea = document.getElementById('message');
+    const email = '<%= property.userRef.email %>';
+    const phone = '<%= property.userRef.phone %>';
+
+    function updateLinks() {
+      const message = encodeURIComponent(messageTextarea.value);
+      emailBtn.href = `mailto:${email}?subject=Regarding <%= property.name %>&body=${message}`;
+      whatsappBtn.href = `https://wa.me/${phone}?text=${message}`;
+    }
+
+    // Update links initially
+    updateLinks();
+
+    // Update links on textarea change
+    messageTextarea.addEventListener('input', updateLinks);
+  });
+</script>
