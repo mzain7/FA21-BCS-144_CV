@@ -255,6 +255,7 @@
         formObject[key] = value;
       });
 
+      formObject.imageUrls = images;
       fetch(form.action, {
         method: "PUT",
         headers: {
@@ -267,7 +268,7 @@
           if (data.error) {
             document.getElementById("form-error").textContent = data.error;
           } else {
-            
+            window.location.href = "/property/" + data._id;
           }
         })
         .catch((err) => console.error(err));

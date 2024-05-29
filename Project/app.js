@@ -34,7 +34,7 @@ app.use(express.static("public"));
 
 app.use(
   session({
-    secret: process.env.SESSION_SECRET || "your_secret_key",
+    secret: process.env.SESSION_SECRET || "secret",
     resave: false,
     saveUninitialized: false,
     cookie: {

@@ -188,7 +188,7 @@
   async function handleImageSubmit(files) {
     const promises = files.map((file) => storeImage(file));
     const urls = await Promise.all(promises);
-    return urls;
+    return Array.from(urls).slice(0, 6);
   }
   function storeImage(file) {
     return new Promise((resolve, reject) => {
@@ -249,6 +249,8 @@
       formData.forEach((value, key) => {
         formObject[key] = value;
       });
+
+      formObject.imageUrls = images;
 
       fetch(form.action, {
         method: "POST",

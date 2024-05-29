@@ -16,20 +16,12 @@ export const verifyUser = (req, res, next) => {
 };
 
 const verifySessionUser = async (req, res, next) => {
-  if (!req.session.userId) {
+  if (!req.session.user) {
     return res.render("users/login", { user: null });
   }
 
-  try {
-    const user = await User.findById(req.session.userId);
-    if (!user) {
-      return res.render("users/login", { user: null });
-    }
-    req.user = user;
-    next();
-  } catch (error) {
-    return res.render("users/login", { user: null });
-  }
+  req.user = req.session.user;
+  next();
 };
 
 export const checkUser = (req, res, next) => {
