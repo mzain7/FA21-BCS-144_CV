@@ -2,45 +2,47 @@ import Property from "../models/property.model.js";
 
 export const getProperties = async (req, res, next) => {
   try {
+    console.log(req.query);
     const limit = parseInt(req.query.limit) || 8;
     const startIndex = parseInt(req.query.startIndex) || 0;
-    let offer = req.query.offer;
-
-    if (offer === undefined || offer === "false") {
-      offer = { $in: [false, true] };
-    }
-
-    let furnished = req.query.furnished;
-
-    if (furnished === undefined || furnished === "false") {
-      furnished = { $in: [false, true] };
-    }
-
-    let parking = req.query.parking;
-
-    if (parking === undefined || parking === "false") {
-      parking = { $in: [false, true] };
-    }
+    const searchTerm = req.query.searchTerm || "";
+    
+    const amenities = req.query.amenities || [];
+    const offer = amenities.includes('offer');
+    const furnished = amenities.includes('furnished');
+    const parking = amenities.includes('parking');
 
     let type = req.query.type;
-
     if (type === undefined || type === "all") {
       type = { $in: ["sale", "rent"] };
     }
 
-    const searchTerm = req.query.searchTerm || "";
+    let sort = "createdAt";
+    let order = "desc";
+    if (req.query.sort_order) {
+      const [sortField, sortOrder] = req.query.sort_order.split('_');
+      sort = sortField;
+      order = sortOrder === 'asc' ? 'asc' : 'desc';
+    }
 
-    const sort = req.query.sort || "createdAt";
-
-    const order = req.query.order || "desc";
-
-    const properties = await Property.find({
+    const query = {
       name: { $regex: searchTerm, $options: "i" },
-      offer,
-      furnished,
-      parking,
       type,
-    })
+    };
+
+    if (offer) {
+      query.offer = true;
+    }
+
+    if (furnished) {
+      query.furnished = true;
+    }
+
+    if (parking) {
+      query.parking = true;
+    }
+
+    const properties = await Property.find(query)
       .sort({ [sort]: order })
       .limit(limit)
       .skip(startIndex);
@@ -50,6 +52,7 @@ export const getProperties = async (req, res, next) => {
     next(error);
   }
 };
+
 
 export const findProperties = async (type, offer) => {
   try {
