@@ -1,10 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
-import bodyParser from "body-parser";
 import session from "express-session";
-import helmet from "helmet";
 import dotenv from "dotenv";
-import path from "path";
 import ejsMate from "ejs-mate";
 import cookieParser from "cookie-parser";
 
@@ -23,7 +20,6 @@ mongoose
   })
   .catch((err) => console.log(err));
 
-// Initialize express
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
