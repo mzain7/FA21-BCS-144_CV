@@ -123,7 +123,7 @@
     event.preventDefault();
     const form = document.getElementById('propertySearchForm');
     const startIndex = parseInt(form.startIndex.value);
-    if (startIndex -8 <= 0) {
+    if (startIndex -8 < 0) {
       return;
     }else{
       form.startIndex.value = startIndex - 8;
